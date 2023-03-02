@@ -22,8 +22,6 @@ namespace NG_Commander.Views
 
         public MainWindow()
         {
-            DataContext = new MainWindowViewModel();
-
             InitializeComponent();
             var iv = this.GetObservable(Window.IsVisibleProperty);
             iv.Subscribe(value =>
@@ -71,14 +69,6 @@ namespace NG_Commander.Views
         private void MnuExit_OnClick(object? sender, RoutedEventArgs e)
         {
             Close();
-        }
-
-        private void CommandButton_OnClick(object? sender, RoutedEventArgs e)
-        {
-            if (sender is Button btnCommand)
-            {
-                Console.WriteLine($"{(btnCommand.Tag as ProductProtocolCommandViewModel)?.Name}");
-            }
         }
     }
 }

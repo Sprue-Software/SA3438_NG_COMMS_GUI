@@ -42,10 +42,6 @@ public class HexInputTextBox : TextBox, IStyleable
             SizeInBytes = Marshal.SizeOf(Value.GetType());
             SetStringFromValue();
         }
-
-        Console.WriteLine("Constructor TextBox");
-        
-        //Text      = $"{Value" + FormatString + "}";
     }
 
     public static readonly DirectProperty<HexInputTextBox, Object> ValueProperty =
@@ -59,10 +55,8 @@ public class HexInputTextBox : TextBox, IStyleable
             SetAndRaise(ValueProperty, ref _value, value);  
         } }
     protected override void OnGotFocus(GotFocusEventArgs e)
-    {
-     Console.WriteLine("OnGetFocus");   
+    {   
         base.OnGotFocus(e);
-        //e.Handled = false;
         if (!AcceptsReturn && Text?.Length > 0)
         {
             SelectionStart = 0;

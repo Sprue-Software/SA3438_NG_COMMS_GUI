@@ -1,6 +1,6 @@
 namespace NG_Commander.Services;
 
-public class CommunicationService
+public class GUILogService
 {
     
 }

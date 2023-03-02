@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:viewModels="clr-namespace:NG_Commander.ViewModels"
+             xmlns:ngCommander="clr-namespace:NG_Commander"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NG_Commander.UC_GUILogRxOK">
+    <Design.DataContext>
+        <viewModels:GUILogRxOK />
+    </Design.DataContext>
+    <Border HorizontalAlignment="Stretch" Padding="0" BorderThickness="1"
+            CornerRadius="4" Background="#2A00c853">
+        <Grid ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto,Auto,Auto,Auto" Background="#00000000">
+
+            <avalonia:MaterialIcon Grid.Column="0" Grid.Row="0" Kind="CheckboxMarkedCircleOutline"
+                                   Foreground="#FF00c853" Width="24" Height="24">
+            </avalonia:MaterialIcon>
+            <avalonia:MaterialIcon Grid.Column="0" Grid.Row="1" Kind="ArrowRightBox" Foreground="#DD424242" Width="24"
+                                   Height="24">
+            </avalonia:MaterialIcon>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TimeString}" FontSize="10" TextAlignment="Right" />
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding TimeDiff}" FontSize="10" TextAlignment="Right"
+                       FontWeight="Bold" />
+            <TextBlock Grid.Column="1" Grid.Row="1" FontWeight="Bold" TextAlignment="Right">Message:</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="2" FontWeight="Bold" TextAlignment="Right">Escaped Message:</TextBlock>
+            <ngCommander:UC_NGRxOkMessageDisplay Grid.Column="2" Grid.Row="1" DataContext="{Binding UnescapedMessage}"/>
+            <ngCommander:UC_NGRxOkMessageDisplay Grid.Column="2" Grid.Row="2" DataContext="{Binding EscapedMessage}"/>
+        </Grid>
+    </Border>
+</UserControl>

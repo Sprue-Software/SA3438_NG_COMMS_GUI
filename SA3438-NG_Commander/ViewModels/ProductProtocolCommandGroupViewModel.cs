@@ -7,7 +7,7 @@ namespace NG_Commander.ViewModels;
 
 public class ProductProtocolCommandGroupViewModel : ObservableObject
 {
-    [Required] public string?                       Name                    { get; set; }
-    public Byte                         CommandGroup            { get; set; }
-    public ObservableCollection<ProductProtocolCommandViewModel> ProductProtocolCommands { get; set; } = new ();
+    [Required] public string?                                               Name                    { get; set; }
+    public            Byte                                                  CommandGroup            { get; set; }
+    public            ObservableCollection<ProductProtocolCommandViewModel> ProductProtocolCommands { get; set; } = new();
 }

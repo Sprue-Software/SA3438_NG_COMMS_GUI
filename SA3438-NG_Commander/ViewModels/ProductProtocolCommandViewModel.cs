@@ -11,10 +11,9 @@ public class ProductProtocolCommandViewModel : ObservableObject
     public string? Unit          { get; set; }
     public float   Multiplier    { get; set; } = 1.0f;
     public UInt32  Timeout_ms    { get; set; } = 0;
-    public String  TxValueString { get; set; } = "";
-    public object? TxValue       { get; set; }
-    
-    public object? RxValue       { get; set; }
-
+    public object? TxValue     { get; set; }
+    public String  TxValueType {get => TxValue == null ? "null" : TxValue.GetType().ToString();}
+    public object? RxValue     { get; set; }
+    public String  RxValueType {get => RxValue == null ? "null" : RxValue.GetType().ToString();}
     public bool HasTxData => TxValue != null;
 }

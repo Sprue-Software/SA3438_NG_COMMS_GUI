@@ -10,7 +10,8 @@ namespace NG_Commander.Services;
 
 public class SettingsService
 {
-    public ObservableCollection<ProductProtocol> ProductProtocols { get; private set; } = new ();
+    public ObservableCollection<ProductProtocol> ProductProtocols  { get; private set; } = new ();
+    public List<Settings_LowLevelProtocol>       LowLevelProtocols { get; private set; } = new();
 
     public SettingsService()
     {
@@ -19,7 +20,7 @@ public class SettingsService
         var                 ConfigurationRoot = ConfigBuilder.Build();
         ToolConfig.ProductProtocols  = ConfigurationRoot.GetSection("ProductProtocols").Get<List<Settings_ProductProtocol>>();
         ToolConfig.LowLevelProtocols = ConfigurationRoot.GetSection("LowLevelProtocols").Get<List<Settings_LowLevelProtocol>>();
-
+        LowLevelProtocols            = ToolConfig.LowLevelProtocols;
         //Check System Types
         //todo add check for protocol handler are Rx/Tx Types
         Boolean IsProtocolHandlerUnique                   = (ToolConfig.LowLevelProtocols.GroupBy(Llp => Llp.Name).Count() == ToolConfig.LowLevelProtocols.Count);
@@ -185,30 +186,5 @@ public class SettingsService
         Console.WriteLine("[SUCCESS] appsetting.json corectly loaded");
     }
 }
-
-public interface ProtocolHandler
-{
-    void Send();
-}
-
-public class ProductProtocolCommand_ViewModel
-{
-    public String Name       { get; set; }
-    public UInt16 Command    { get; set; }
-    public String TxType     { get; set; }
-    public String RxType     { get; set; }
-    public String Unit       { get; set; }
-    public float  Multiplier { get; set; } = 1.0f;
-    public UInt32 Timeout_ms { get; set; } = 0;
-
-    public bool HasTxData
-    {
-        get => !String.IsNullOrEmpty(TxType?.Trim());
-    }
-
-    public object TxValue { get; set; } = 0;
-}
-
-
 
 

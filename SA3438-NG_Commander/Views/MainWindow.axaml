@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ngCommander="clr-namespace:NG_Commander"
+        xmlns:dataTemplates="clr-namespace:NG_Commander.DataTemplates"
+        xmlns:material="using:Material.Icons.Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="NG_Commander.Views.MainWindow"
         Icon="/Assets/Fireangel.ico"
@@ -27,24 +29,36 @@
             </Menu>
         </Grid>
         <Grid Grid.Row="1">
-            <StackPanel Orientation="Horizontal">
-                <ComboBox Margin="5,5,0,0" Items="{Binding Protocols}"
-                          SelectedItem="{Binding SelectedProductProtocol, Mode=TwoWay}" IsEnabled="{Binding !IsConnected}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate DataType="vm:ProductProtocolViewModel">
-                            <TextBlock TextAlignment="Left" Text="{Binding Name}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <ComboBox Margin="5,5,0,0" Items="{Binding SerialPorts}" SelectedIndex="{Binding SelectedSerialPortIndex, Mode=TwoWay}" IsEnabled="{Binding !IsConnected}" IsDropDownOpen="{Binding IsPortsComboboxDown}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate DataType="vm:ProductProtocolViewModel">
-                            <TextBlock TextAlignment="Left" Text="{Binding Name}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <Button Margin="5,5,0,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Content="{Binding ConnectDisconnect}" Command="{Binding OpenClosePortCommand}"/>
-            </StackPanel>
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <ComboBox Margin="5,5,0,0" Items="{Binding Protocols}"
+                              SelectedItem="{Binding SelectedProductProtocol, Mode=TwoWay}"
+                              IsEnabled="{Binding !IsConnected}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="vm:ProductProtocolViewModel">
+                                <TextBlock TextAlignment="Left" Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox Margin="5,5,0,0" Items="{Binding SerialPorts}"
+                              SelectedIndex="{Binding SelectedSerialPortIndex, Mode=TwoWay}"
+                              IsEnabled="{Binding !IsConnected}" IsDropDownOpen="{Binding IsPortsComboboxDown}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="vm:ProductProtocolViewModel">
+                                <TextBlock TextAlignment="Left" Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Margin="5,5,0,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
+                            Content="{Binding ConnectDisconnect}" Command="{Binding OpenClosePortCommand}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
+                    <Button Margin="5,5,0,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Command="{Binding ClearLogsCommand}"
+                            Content="Clear Logs" />
+                </StackPanel>
+            </Grid>
         </Grid>
         <Grid Grid.Row="2">
             <Grid ColumnDefinitions="Auto,*" RowDefinitions="*" HorizontalAlignment="Stretch">
@@ -54,8 +68,9 @@
                             <Label Content="Commands" FontWeight="Bold" FontSize="16" />
                         </Grid>
                         <Grid Column="0" Row="1" HorizontalAlignment="Stretch">
-                            <ScrollViewer HorizontalAlignment="Stretch" Padding="0,0,7,0"> <!-- IsEnabled="{Binding IsConnected}">-->
-                                <ItemsRepeater  Items="{Binding SelectedProductProtocol.ProductProtocolCommandGroups }" HorizontalAlignment="Stretch">
+                            <ScrollViewer HorizontalAlignment="Stretch" Padding="0,0,7,0">
+                                <ItemsRepeater Items="{Binding SelectedProductProtocol.ProductProtocolCommandGroups }"
+                                               HorizontalAlignment="Stretch">
                                     <ItemsRepeater.ItemTemplate>
                                         <DataTemplate DataType="vm:ProductProtocolCommandGroupViewModel">
                                             <Expander Header="{Binding Name}" HorizontalAlignment="Stretch"
@@ -67,41 +82,100 @@
                                                 <ItemsRepeater Items="{Binding ProductProtocolCommands}"
                                                                HorizontalAlignment="Stretch" Margin="0">
                                                     <ItemsRepeater.DataTemplates>
-                                                        <DataTemplate >
-                                                        <ngCommander:HexInputTextBox Grid.Column="1" Value="{Binding TxValue}"
-                                                            VerticalAlignment="Center" TextAlignment="Right"
-                                                            HorizontalContentAlignment="Right" HorizontalAlignment="Stretch"
-                                                            VerticalContentAlignment="Center"
-                                                            AcceptsReturn="False" MaxWidth="215" FontFamily="Courier New" FontSize="14"
-                                                            Margin="1,1,1,1" Padding="5,2,0,2" IsVisible="{Binding HasTxData}"/>
-                                                        </DataTemplate>
+                                                        <dataTemplates:ProductProtocolCommandViewModelTxTemplateSelector>
+                                                            <DataTemplate
+                                                                x:DataType="vm:ProductProtocolCommandViewModel"
+                                                                x:Key="null" />
+
+                                                            <DataTemplate
+                                                                x:DataType="vm:ProductProtocolCommandViewModel"
+                                                                x:Key="UnknownDataType">
+                                                                <TextBlock MaxWidth="215" FontFamily="Courier New"
+                                                                           FontSize="14" Text="Unknown Type" />
+                                                            </DataTemplate>
+                                                            <DataTemplate
+                                                                x:DataType="vm:ProductProtocolCommandViewModel"
+                                                                x:Key="System.Boolean">
+                                                                <ToggleSwitch IsChecked="{Binding TxValue}" />
+                                                                <!--<CheckBox IsChecked="{Binding TxValue}"/>-->
+                                                            </DataTemplate>
+                                                            <DataTemplate
+                                                                x:DataType="vm:ProductProtocolCommandViewModel"
+                                                                x:Key="System.Byte">
+                                                                <ngCommander:HexInputTextBox Value="{Binding TxValue}"
+                                                                    VerticalAlignment="Center" TextAlignment="Right"
+                                                                    HorizontalContentAlignment="Right"
+                                                                    HorizontalAlignment="Stretch"
+                                                                    VerticalContentAlignment="Center"
+                                                                    AcceptsReturn="False" MaxWidth="215"
+                                                                    FontFamily="Courier New" FontSize="14"
+                                                                    Margin="1,1,1,1" Padding="5,2,0,2" />
+                                                            </DataTemplate>
+
+                                                            <DataTemplate
+                                                                x:DataType="vm:ProductProtocolCommandViewModel"
+                                                                x:Key="System.UInt16">
+                                                                <ngCommander:HexInputTextBox Value="{Binding TxValue}"
+                                                                    VerticalAlignment="Center" TextAlignment="Right"
+                                                                    HorizontalContentAlignment="Right"
+                                                                    HorizontalAlignment="Stretch"
+                                                                    VerticalContentAlignment="Center"
+                                                                    AcceptsReturn="False" MaxWidth="215"
+                                                                    FontFamily="Courier New" FontSize="14"
+                                                                    Margin="1,1,1,1" Padding="5,2,0,2" />
+                                                            </DataTemplate>
+                                                            <DataTemplate
+                                                                x:DataType="vm:ProductProtocolCommandViewModel"
+                                                                x:Key="System.UInt32">
+                                                                <ngCommander:HexInputTextBox Value="{Binding TxValue}"
+                                                                    VerticalAlignment="Center" TextAlignment="Right"
+                                                                    HorizontalContentAlignment="Right"
+                                                                    HorizontalAlignment="Stretch"
+                                                                    VerticalContentAlignment="Center"
+                                                                    AcceptsReturn="False" MaxWidth="215"
+                                                                    FontFamily="Courier New" FontSize="14"
+                                                                    Margin="1,1,1,1" Padding="5,2,0,2" />
+                                                            </DataTemplate>
+                                                            <DataTemplate
+                                                                x:DataType="vm:ProductProtocolCommandViewModel"
+                                                                x:Key="System.UInt64">
+                                                                <ngCommander:HexInputTextBox Value="{Binding TxValue}"
+                                                                    VerticalAlignment="Center" TextAlignment="Right"
+                                                                    HorizontalContentAlignment="Right"
+                                                                    HorizontalAlignment="Stretch"
+                                                                    VerticalContentAlignment="Center"
+                                                                    AcceptsReturn="False" MaxWidth="215"
+                                                                    FontFamily="Courier New" FontSize="14"
+                                                                    Margin="1,1,1,1" Padding="5,2,0,2" />
+                                                            </DataTemplate>
+                                                        </dataTemplates:ProductProtocolCommandViewModelTxTemplateSelector>
                                                     </ItemsRepeater.DataTemplates>
                                                     <ItemsRepeater.ItemTemplate>
-                                                        
-                                                        <DataTemplate DataType="vm:ProductProtocolCommandViewModel" >
-                                                            <Grid ColumnDefinitions="175,*" Margin="0,1,1,1" HorizontalAlignment="Stretch">
-                                                                <Button ToolTip.Tip="{Binding ToolTipText}" ToolTip.ShowDelay="50" ToolTip.HorizontalOffset="0" ToolTip.VerticalOffset="-20" Grid.Column="0"
+
+                                                        <DataTemplate DataType="vm:ProductProtocolCommandViewModel">
+                                                            <Grid ColumnDefinitions="175,*" Margin="0,1,1,1"
+                                                                  HorizontalAlignment="Stretch">
+                                                                <Button ToolTip.Tip="{Binding ToolTipText}"
+                                                                        ToolTip.ShowDelay="50"
+                                                                        ToolTip.HorizontalOffset="0"
+                                                                        ToolTip.VerticalOffset="-20" Grid.Column="0"
                                                                         Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext}"
                                                                         HorizontalAlignment="Stretch" Margin="0,0,5,0"
                                                                         VerticalAlignment="Stretch"
                                                                         HorizontalContentAlignment="Center"
-                                                                        Click="CommandButton_OnClick">
+                                                                        Command="{Binding $parent[ScrollViewer].DataContext.SendCommandCommand}"
+                                                                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=DataContext}"
+                                                                        IsEnabled="{Binding $parent[Window].DataContext.IsConnected}">
                                                                     <Border>
-                                                                        <TextBlock Text="{Binding Name}" TextWrapping="Wrap"
-                                                                            TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                                                        <TextBlock Text="{Binding Name}"
+                                                                            TextWrapping="Wrap"
+                                                                            TextAlignment="Center"
+                                                                            VerticalAlignment="Center"
+                                                                            HorizontalAlignment="Stretch">
                                                                         </TextBlock>
                                                                     </Border>
                                                                 </Button>
-                                                                
-                                                                <!--<ngCommander:HexInputTextBox Grid.Column="1" Value="{Binding TxValue}"
-                                                                    VerticalAlignment="Center" TextAlignment="Right"
-                                                                         HorizontalContentAlignment="Right" HorizontalAlignment="Stretch"
-                                                                         VerticalContentAlignment="Center"
-                                                                         AcceptsReturn="False" MaxWidth="215" FontFamily="Courier New" FontSize="14"
-                                                                         Margin="1,1,1,1" Padding="5,2,0,2" IsVisible="{Binding HasTxData}"/>-->
-                                                                         <ContentControl Grid.Column="1" Content="{Binding}">
-                                                                             
-                                                                         </ContentControl>
+                                                                <ContentControl Grid.Column="1" Content="{Binding}" />
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ItemsRepeater.ItemTemplate>
@@ -114,16 +188,136 @@
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid Grid.Column="1" Row="0" Margin="5,5">
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Label Content="Logs" FontWeight="Black" FontStyle="16" />
-                        <ScrollViewer HorizontalAlignment="Stretch" Padding="0,0,7,0" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible"> <!-- IsEnabled="{Binding IsConnected}">-->
-                            <!--<ItemsRepeater  Items="{Binding SelectedProductProtocol.ProductProtocolCommandGroups }" HorizontalAlignment="Stretch">
-                                <ItemsRepeater.ItemTemplate>
-                                    </ItemsRepeater.ItemTemplate>
-                                </ItemsRepeater>-->dd
-                            </ScrollViewer>
-                    </StackPanel>
+                <Grid Grid.Column="1" Row="0" Margin="1,1" HorizontalAlignment="Stretch">
+                    <ScrollViewer HorizontalAlignment="Stretch" Margin="0" Padding="0,0,0,0"
+                                  HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                        <ItemsRepeater Items="{Binding Logs}" HorizontalAlignment="Stretch" Margin="0">
+
+                            <ItemsRepeater.DataTemplates>
+
+                                <DataTemplate DataType="vm:GUILogInfo">
+                                    <Border HorizontalAlignment="Stretch" Padding="0" BorderThickness="1"
+                                            CornerRadius="4" Background="#2A424242">
+                                        <TextBlock Text="{Binding Type }" Padding="0" Margin="0"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center" VerticalAlignment="Center"
+                                                   HorizontalAlignment="Stretch" />
+                                    </Border>
+                                </DataTemplate>
+
+                                <DataTemplate DataType="vm:GUILogWarning">
+                                    <Border HorizontalAlignment="Stretch" Padding="0" BorderThickness="1"
+                                            CornerRadius="4" Background="#44FF9800">
+                                        <TextBlock Text="{Binding Type }" Padding="0" Margin="0"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center" VerticalAlignment="Center"
+                                                   HorizontalAlignment="Stretch" />
+                                    </Border>
+                                </DataTemplate>
+
+                                <DataTemplate DataType="vm:GUILogError">
+                                    <Border HorizontalAlignment="Stretch" Padding="0" BorderThickness="1"
+                                            CornerRadius="4" Background="#44FF4081">
+                                        <TextBlock Text="{Binding Type }" Padding="0" Margin="0"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center" VerticalAlignment="Center"
+                                                   HorizontalAlignment="Stretch" />
+                                    </Border>
+                                </DataTemplate>
+
+                                <DataTemplate DataType="vm:GUILogRxOK">
+                                    <ngCommander:UC_GUILogRxOK DataContext="{Binding}" />
+                                </DataTemplate>
+
+                                <DataTemplate DataType="vm:GUILogRxWarning">
+                                    <ngCommander:UC_GUILogRxNackWarning DataContext="{Binding}"/>
+                                    <!--<Border HorizontalAlignment="Stretch" Padding="0" BorderThickness="1"
+                                            CornerRadius="4" Background="#2AFF9800">
+                                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto"
+                                              Background="#00000000">
+                                            <material:MaterialIcon Grid.Column="0" Grid.Row="0"
+                                                                   Kind="AlertCircleOutline" Foreground="#FFFF9800"
+                                                                   Width="24" Height="24">
+                                            </material:MaterialIcon>
+                                            <material:MaterialIcon Grid.Column="0" Grid.Row="1" Kind="ArrowRightBox"
+                                                                   Foreground="#DD424242" Width="24" Height="24">
+                                            </material:MaterialIcon>
+                                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TimeString}"
+                                                       FontSize="10" TextAlignment="Right" />
+                                            <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding TimeDiff}"
+                                                       FontSize="10" TextAlignment="Right" FontWeight="Bold" />
+
+                                            <StackPanel Grid.Column="1">
+                                                <TextBlock Text="{Binding MessageString}" Padding="0" Margin="0"
+                                                           TextWrapping="Wrap"
+                                                           TextAlignment="Center" VerticalAlignment="Center"
+                                                           HorizontalAlignment="Stretch" />
+
+                                                <TextBlock Text="{Binding EscapedMessageString}" Padding="0" Margin="0"
+                                                           TextWrapping="Wrap"
+                                                           TextAlignment="Center" VerticalAlignment="Center"
+                                                           HorizontalAlignment="Stretch" />
+
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>-->
+                                    <!--<material:MaterialIcon Kind="AlertCircleOutline" Foreground="#FF424242" Width="48" Height="48"></material:MaterialIcon>
+                                                <material:MaterialIcon Kind="AlertCircleOutline" Foreground="#FFFF4081" Width="48" Height="48"></material:MaterialIcon>
+                                                <material:MaterialIcon Kind="AlertOutline" Foreground="#FFFF9800" Width="48" Height="48"></material:MaterialIcon>
+                                                <material:MaterialIcon Kind="CheckboxMarkedCircleOutline" Foreground="#FF00c853" Width="48" Height="48"></material:MaterialIcon>-->
+
+                                </DataTemplate>
+
+                                <DataTemplate DataType="vm:GUILogRxError">
+                                    <Border HorizontalAlignment="Stretch" Padding="0" BorderThickness="1"
+                                            CornerRadius="4" Background="#2AFF4081">
+                                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto"
+                                              Background="#00000000">
+
+                                            <material:MaterialIcon Grid.Column="0" Grid.Row="0"
+                                                                   Kind="AlertCircleOutline" Foreground="#FFFF4081"
+                                                                   Width="24" Height="24">
+                                            </material:MaterialIcon>
+                                            <material:MaterialIcon Grid.Column="0" Grid.Row="1" Kind="ArrowRightBox"
+                                                                   Foreground="#DD424242" Width="24" Height="24">
+                                            </material:MaterialIcon>
+                                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TimeString}"
+                                                       FontSize="10" TextAlignment="Right" />
+                                            <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding TimeDiff}"
+                                                       FontSize="10" TextAlignment="Right" FontWeight="Bold" />
+                                            <!--<TextBlock Grid.Column="0">RX</TextBlock>-->
+                                            <StackPanel Grid.Column="1">
+                                                <TextBlock Text="{Binding MessageString}" Padding="0" Margin="0"
+                                                           TextWrapping="Wrap"
+                                                           TextAlignment="Center" VerticalAlignment="Center"
+                                                           HorizontalAlignment="Stretch" />
+
+                                                <TextBlock Text="{Binding EscapedMessageString}" Padding="0" Margin="0"
+                                                           TextWrapping="Wrap"
+                                                           TextAlignment="Center" VerticalAlignment="Center"
+                                                           HorizontalAlignment="Stretch" />
+
+                                                <!--<material:MaterialIcon Kind="AlertCircleOutline" Foreground="#FF424242" Width="48" Height="48"></material:MaterialIcon>
+                                                <material:MaterialIcon Kind="AlertCircleOutline" Foreground="#FFFF4081" Width="48" Height="48"></material:MaterialIcon>
+                                                <material:MaterialIcon Kind="AlertOutline" Foreground="#FFFF9800" Width="48" Height="48"></material:MaterialIcon>
+                                                <material:MaterialIcon Kind="CheckboxMarkedCircleOutline" Foreground="#FF00c853" Width="48" Height="48"></material:MaterialIcon>-->
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+
+                                <DataTemplate DataType="vm:GUILogTx">
+                                    <ngCommander:UC_GUILogTx DataContext="{Binding }" />
+                                </DataTemplate>
+
+                            </ItemsRepeater.DataTemplates>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl Content="{Binding }" Margin="5" />
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </ScrollViewer>
                 </Grid>
             </Grid>
         </Grid>
