@@ -5,6 +5,7 @@
       <map>
         <entry key="SA3438-NG_Commander/App.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
         <entry key="SA3438-NG_Commander/GUILogTx.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
+        <entry key="SA3438-NG_Commander/UC_GUILogRxNackError.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
         <entry key="SA3438-NG_Commander/UC_GUILogRxNackWarning.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
         <entry key="SA3438-NG_Commander/UC_GUILogRxOK.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
         <entry key="SA3438-NG_Commander/UC_GUILogTx.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />

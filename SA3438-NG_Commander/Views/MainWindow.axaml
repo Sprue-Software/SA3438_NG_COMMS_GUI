@@ -230,82 +230,12 @@
                                 </DataTemplate>
 
                                 <DataTemplate DataType="vm:GUILogRxWarning">
-                                    <ngCommander:UC_GUILogRxNackWarning DataContext="{Binding}"/>
-                                    <!--<Border HorizontalAlignment="Stretch" Padding="0" BorderThickness="1"
-                                            CornerRadius="4" Background="#2AFF9800">
-                                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto"
-                                              Background="#00000000">
-                                            <material:MaterialIcon Grid.Column="0" Grid.Row="0"
-                                                                   Kind="AlertCircleOutline" Foreground="#FFFF9800"
-                                                                   Width="24" Height="24">
-                                            </material:MaterialIcon>
-                                            <material:MaterialIcon Grid.Column="0" Grid.Row="1" Kind="ArrowRightBox"
-                                                                   Foreground="#DD424242" Width="24" Height="24">
-                                            </material:MaterialIcon>
-                                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TimeString}"
-                                                       FontSize="10" TextAlignment="Right" />
-                                            <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding TimeDiff}"
-                                                       FontSize="10" TextAlignment="Right" FontWeight="Bold" />
-
-                                            <StackPanel Grid.Column="1">
-                                                <TextBlock Text="{Binding MessageString}" Padding="0" Margin="0"
-                                                           TextWrapping="Wrap"
-                                                           TextAlignment="Center" VerticalAlignment="Center"
-                                                           HorizontalAlignment="Stretch" />
-
-                                                <TextBlock Text="{Binding EscapedMessageString}" Padding="0" Margin="0"
-                                                           TextWrapping="Wrap"
-                                                           TextAlignment="Center" VerticalAlignment="Center"
-                                                           HorizontalAlignment="Stretch" />
-
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>-->
-                                    <!--<material:MaterialIcon Kind="AlertCircleOutline" Foreground="#FF424242" Width="48" Height="48"></material:MaterialIcon>
-                                                <material:MaterialIcon Kind="AlertCircleOutline" Foreground="#FFFF4081" Width="48" Height="48"></material:MaterialIcon>
-                                                <material:MaterialIcon Kind="AlertOutline" Foreground="#FFFF9800" Width="48" Height="48"></material:MaterialIcon>
-                                                <material:MaterialIcon Kind="CheckboxMarkedCircleOutline" Foreground="#FF00c853" Width="48" Height="48"></material:MaterialIcon>-->
-
+                                    <ngCommander:UC_GUILogRxNackWarning DataContext="{Binding}" />
                                 </DataTemplate>
 
                                 <DataTemplate DataType="vm:GUILogRxError">
-                                    <Border HorizontalAlignment="Stretch" Padding="0" BorderThickness="1"
-                                            CornerRadius="4" Background="#2AFF4081">
-                                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto"
-                                              Background="#00000000">
-
-                                            <material:MaterialIcon Grid.Column="0" Grid.Row="0"
-                                                                   Kind="AlertCircleOutline" Foreground="#FFFF4081"
-                                                                   Width="24" Height="24">
-                                            </material:MaterialIcon>
-                                            <material:MaterialIcon Grid.Column="0" Grid.Row="1" Kind="ArrowRightBox"
-                                                                   Foreground="#DD424242" Width="24" Height="24">
-                                            </material:MaterialIcon>
-                                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TimeString}"
-                                                       FontSize="10" TextAlignment="Right" />
-                                            <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding TimeDiff}"
-                                                       FontSize="10" TextAlignment="Right" FontWeight="Bold" />
-                                            <!--<TextBlock Grid.Column="0">RX</TextBlock>-->
-                                            <StackPanel Grid.Column="1">
-                                                <TextBlock Text="{Binding MessageString}" Padding="0" Margin="0"
-                                                           TextWrapping="Wrap"
-                                                           TextAlignment="Center" VerticalAlignment="Center"
-                                                           HorizontalAlignment="Stretch" />
-
-                                                <TextBlock Text="{Binding EscapedMessageString}" Padding="0" Margin="0"
-                                                           TextWrapping="Wrap"
-                                                           TextAlignment="Center" VerticalAlignment="Center"
-                                                           HorizontalAlignment="Stretch" />
-
-                                                <!--<material:MaterialIcon Kind="AlertCircleOutline" Foreground="#FF424242" Width="48" Height="48"></material:MaterialIcon>
-                                                <material:MaterialIcon Kind="AlertCircleOutline" Foreground="#FFFF4081" Width="48" Height="48"></material:MaterialIcon>
-                                                <material:MaterialIcon Kind="AlertOutline" Foreground="#FFFF9800" Width="48" Height="48"></material:MaterialIcon>
-                                                <material:MaterialIcon Kind="CheckboxMarkedCircleOutline" Foreground="#FF00c853" Width="48" Height="48"></material:MaterialIcon>-->
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
+                                    <ngCommander:UC_GUILogRxNackError DataContext="{Binding }" />
                                 </DataTemplate>
-
                                 <DataTemplate DataType="vm:GUILogTx">
                                     <ngCommander:UC_GUILogTx DataContext="{Binding }" />
                                 </DataTemplate>
