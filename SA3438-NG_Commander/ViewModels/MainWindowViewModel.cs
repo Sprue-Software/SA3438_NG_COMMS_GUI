@@ -6,10 +6,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData;
 using NG_Commander.Models;
 using NG_Commander.Services;
 using RJCP.IO.Ports;
@@ -115,7 +117,7 @@ namespace NG_Commander.ViewModels
                     if (!SerialPortIsConnected && (IsPortsComboboxDown || SerialPorts.Count == 0))
                     {
                         Console.WriteLine($"Dropdown open? [{IsPortsComboboxDown}");
-                        SerialPorts = new ObservableCollection<String>(SerialPortStream.GetPortNames().ToList());
+                        SerialPorts = new ObservableCollection<String>(SerialPortStream.GetPortNames().ToList().OrderBy(i => i));
                     }
 
                     Thread.Sleep(1000);
@@ -217,6 +219,13 @@ namespace NG_Commander.ViewModels
         public void ClearLogs()
         {
             Logs.Clear();
+        }
+
+        [RelayCommand]
+        public void ExportLogs()
+        {
+            //var SaveFileBox = new SaveFileDialog();
+            //SaveFileBox.Filters.Add(new);
         }
     }
 }

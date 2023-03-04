@@ -29,10 +29,11 @@
             <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding TimeString}" FontSize="10" TextAlignment="Right" />
             <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding TimeDiff}" FontSize="10" TextAlignment="Right"
                        FontWeight="Bold" />
-            <TextBlock Grid.Column="1" Grid.Row="0" FontWeight="Bold" TextAlignment="Right">NACK Reason:</TextBlock>
-            <TextBlock Grid.Column="2" Grid.Row="0" TextAlignment="Left" Text="{Binding ReasonString}" />
-            <TextBlock Grid.Column="1" Grid.Row="1" FontWeight="Bold" TextAlignment="Right">Message:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="2" FontWeight="Bold" TextAlignment="Right">Escaped Message:</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="0" FontWeight="Bold" TextAlignment="Right" Text="NACK Reason:" />
+            <TextBlock Grid.Column="2" Grid.Row="0" TextAlignment="Left" Foreground="#FFFF4081"
+                       Text="{Binding ReasonString}" />
+            <TextBlock Grid.Column="1" Grid.Row="1" FontWeight="Bold" TextAlignment="Right" Text="Message:" />
+            <TextBlock Grid.Column="1" Grid.Row="2" FontWeight="Bold" TextAlignment="Right" Text="Escaped Message:" />
             <ngCommander:UC_NGRxNackMessageDisplay Grid.Column="2" Grid.Row="1"
                                                    DataContext="{Binding UnescapedMessage}" />
             <ngCommander:UC_NGRxNackMessageDisplay Grid.Column="2" Grid.Row="2" DataContext="{Binding EscapedMessage}" />

@@ -183,6 +183,18 @@ public class SettingsService
             Console.WriteLine("[ERROR] Invalid appsettings.json file");
         }
 
+        //Sort the protocol lists
+        ProductProtocols = new ObservableCollection<ProductProtocol>(ProductProtocols.OrderBy(i => i.Name).ToList());
+        foreach (var Protocol in ProductProtocols)
+        {
+            Protocol.ProductProtocolCommandGroups = new List<ProductProtocolCommandGroup>(Protocol.ProductProtocolCommandGroups.OrderBy(i => i.Name).ToList());
+            foreach (var Command in Protocol.ProductProtocolCommandGroups)
+            {
+                Command.ProductProtocolCommands = Command.ProductProtocolCommands.OrderBy(i => i.Name).ToList();
+
+            }
+        }
+
         Console.WriteLine("[SUCCESS] appsetting.json corectly loaded");
     }
 }

@@ -14,7 +14,7 @@ public class GUILogRxAckViewModel
             ACK        = "[" + BitConverter.ToString(NGProtocol.EscapeData(Message.Take(2).ToArray()))                              + "]";
             DataLength = "[" + BitConverter.ToString(NGProtocol.EscapeData(Message.Skip(2).Take(2).ToArray()))                      + "]";
             CMD        = "[" + BitConverter.ToString(NGProtocol.EscapeData(Message.Skip(4).Take(2).ToArray()))                      + "]";
-            Data       = "[" + BitConverter.ToString(NGProtocol.EscapeData(Message.Skip(4).Take(Message.Length - 2 - 6).ToArray())) + "]";
+            Data       = "[" + BitConverter.ToString(NGProtocol.EscapeData(Message.Skip(6).Take(Message.Length - 2 - 6).ToArray())) + "]";
             CRC        = "[" + BitConverter.ToString(NGProtocol.EscapeData(Message.TakeLast(2).ToArray()))                                     + "]";
         }
         else
