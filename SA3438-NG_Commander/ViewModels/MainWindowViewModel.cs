@@ -40,9 +40,10 @@ namespace NG_Commander.ViewModels
                         ProductProtocolCommandViewModel vm = new()
                         {
                             Name       = ProductProtocolCommand.Name,
+                            CommandGroupName = ProductProtocolCommandGroup.Name,
                             Command    = ProductProtocolCommand.Command,
-                            Unit       = ProductProtocolCommand.Unit,
-                            Multiplier = ProductProtocolCommand.Multiplier,
+                            RxUnit       = ProductProtocolCommand.RxUnit,
+                            RxMultiplier = ProductProtocolCommand.RxMultiplier,
                             Timeout_ms = ProductProtocolCommand.Timeout_ms
                         };
                         if (!String.IsNullOrEmpty(ProductProtocolCommand.ToolTipText))
@@ -123,6 +124,7 @@ namespace NG_Commander.ViewModels
                     Thread.Sleep(1000);
                 }
             }));
+            
 
             async Task UpdateGuiLogs()
             {
@@ -132,23 +134,18 @@ namespace NG_Commander.ViewModels
                 {
                     Logs.Insert(0, Msg);
                     HasChanged = true;
-                    //Logs.Add(Msg);
                 }
-
                 
                 while (Logs.Count > 5000)
                 {
                     Logs.RemoveAt(0);
+                    HasChanged = true;
                 }
 
+                
                 if (HasChanged)
                 {
-                    //NotifyCollectionChangedEventArgs args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-                    
-                    //Logs.OnCollectionChanged(args);
-                    //todo force update as this is not always executed, implement thread safe observablecollection
-                    
-                    HasChanged = false;
+                    Logs = new ObservableCollection<GUILogBase>(Logs); //Ensure GUI is updated
                 }
             }
             Task.Factory.StartNew(new Action(() =>
@@ -160,8 +157,8 @@ namespace NG_Commander.ViewModels
                     Thread.Sleep(50);
                 }
             }));
-            
-            
+
+
         }
 
         [ObservableProperty] public Boolean isPortsComboboxDown;
@@ -169,8 +166,15 @@ namespace NG_Commander.ViewModels
         [ObservableProperty] public ProductProtocolViewModel                       selectedProductProtocol;
         public                      ObservableCollection<ProductProtocolViewModel> Protocols { get; set; } = new();
         
-        public ObservableCollection<GUILogBase> Logs { get; set; } = new();
+        private ObservableCollection<GUILogBase> logs = new();
 
+        public ObservableCollection<GUILogBase> Logs
+        {
+            get => logs;
+            set => SetProperty(ref logs, value);
+        }
+        //public ObservableCollection<GUILogBase> Logs { get; set; } = new();
+        
         [ObservableProperty] public String connectDisconnect = "Connect";
 
         [ObservableProperty] private Boolean isConnected = false;
@@ -212,7 +216,6 @@ namespace NG_Commander.ViewModels
         public void SendCommand(ProductProtocolCommandViewModel Data)
         {
             m_NgProtocol.SendMessage(Data);
-            Console.WriteLine("Buttom Pressed");
         }
 
         [RelayCommand]
@@ -220,12 +223,6 @@ namespace NG_Commander.ViewModels
         {
             Logs.Clear();
         }
-
-        [RelayCommand]
-        public void ExportLogs()
-        {
-            //var SaveFileBox = new SaveFileDialog();
-            //SaveFileBox.Filters.Add(new);
-        }
+        
     }
 }

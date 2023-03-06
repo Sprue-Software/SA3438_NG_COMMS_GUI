@@ -5,7 +5,7 @@ using NG_Commander.Services;
 
 namespace NG_Commander.ViewModels;
 
-public class GUILogTxMessageViewModel
+public class GUILogTxMessageViewModel : GUILogRxTxBase
 {
     public GUILogTxMessageViewModel(Byte[] Message, Boolean IsEscaped = false)
     {

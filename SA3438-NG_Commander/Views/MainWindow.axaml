@@ -21,6 +21,7 @@
         <Grid Grid.Row="0">
             <Menu Background="#F0F0F0">
                 <MenuItem Header="_File">
+                    <MenuItem Header="_Export" Name="mnuExportLogs" Click="MnuExportLogs_OnClick" />
                     <MenuItem Header="_Exit" Name="mnuExit" Click="MnuExit_OnClick" />
                 </MenuItem>
                 <MenuItem Header="_Help" Name="mnuHelp">

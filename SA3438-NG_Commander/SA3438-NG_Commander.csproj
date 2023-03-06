@@ -37,4 +37,35 @@
         <PackageReference Include="SerialPortStream" Version="2.4.1" />
         <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="UserControls\UC_GUILogRxNackError.axaml.cs">
+        <DependentUpon>UC_GUILogRxNackError.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\UC_GUILogRxNackWarning.axaml.cs">
+        <DependentUpon>UC_GUILogRxNackWarning.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\UC_GUILogRxOK.axaml.cs">
+        <DependentUpon>UC_GUILogRxOK.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\UC_GUILogTx.axaml.cs">
+        <DependentUpon>UC_GUILogTx.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\UC_NGRxNackMessageDisplay.axaml.cs">
+        <DependentUpon>UC_NGRxNackMessageDisplay.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\UC_NGRxOkMessageDisplay.axaml.cs">
+        <DependentUpon>UC_NGRxOkMessageDisplay.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\UC_NGTxMessageDisplay.axaml.cs">
+        <DependentUpon>UC_NGTxMessageDisplay.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>

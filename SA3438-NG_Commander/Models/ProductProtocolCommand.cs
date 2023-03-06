@@ -10,7 +10,7 @@ public class ProductProtocolCommand
     public            String? ToolTipText { get; set; }
     public            String? TxType  { get; set; }
     public            String? RxType  { get; set; }
-    public            String? Unit       { get; set; }
-    public float  Multiplier { get; set; } = 1.0f;
+    public            String? RxUnit       { get; set; }
+    public float  RxMultiplier { get; set; } = 1.0f;
     public UInt32 Timeout_ms { get; set; } = 0;
 }

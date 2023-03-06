@@ -14,6 +14,9 @@
         <entry key="SA3438-NG_Commander/UC_NGRxOkMessageDisaplay.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
         <entry key="SA3438-NG_Commander/UC_NGRxOkMessageDisplay.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
         <entry key="SA3438-NG_Commander/UC_NGTxMessageDisplay.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
+        <entry key="SA3438-NG_Commander/UserControls/UC_GUILogRxNackWarning.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
+        <entry key="SA3438-NG_Commander/UserControls/UC_GUILogRxOK.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
+        <entry key="SA3438-NG_Commander/UserControls/UC_NGRxNackMessageDisplay.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
         <entry key="SA3438-NG_Commander/Views/MainWindow.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
       </map>
     </option>

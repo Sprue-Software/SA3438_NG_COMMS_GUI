@@ -5,7 +5,7 @@ using NG_Commander.Services;
 
 namespace NG_Commander.ViewModels;
 
-public class GUILogRxAckViewModel
+public class GUILogRxAckViewModel : GUILogRxOK
 {
     public GUILogRxAckViewModel(Byte[] Message, Boolean IsEscaped = false)
     {

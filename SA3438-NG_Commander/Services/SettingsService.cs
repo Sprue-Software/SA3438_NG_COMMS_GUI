@@ -152,7 +152,7 @@ public class SettingsService
                                             Name   = ConfigGroupCommand.Description, Command = configProductCommand, TxType = ConfigGroupCommand.TxType,
                                             RxType = ConfigGroupCommand.RxType,
                                             ToolTipText = ConfigGroupCommand.ToolTipText,
-                                            Unit   = ConfigGroupCommand.Unit, Multiplier = ConfigGroupCommand.Multiplier, Timeout_ms = ConfigGroupCommand.Timoutms
+                                            RxUnit   = ConfigGroupCommand.RxUnit, RxMultiplier = ConfigGroupCommand.RxMultiplier, Timeout_ms = ConfigGroupCommand.Timoutms
                                         });
                                     }
                                     else
