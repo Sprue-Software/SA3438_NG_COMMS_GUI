@@ -3,20 +3,8 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="SA3438-NG_COMMS_GUI/Views/MainWindow.axaml" value="SA3438-NG_COMMS_GUI/SA3438-NG_COMMS_GUI.csproj" />
         <entry key="SA3438-NG_Commander/App.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/GUILogTx.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/UC_GUILogRxNackError.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/UC_GUILogRxNackWarning.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/UC_GUILogRxOK.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/UC_GUILogTx.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/UC_NGMessageDisplay.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/UC_NGRxNackMessageDisplay.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/UC_NGRxOkMessageDisaplay.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/UC_NGRxOkMessageDisplay.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/UC_NGTxMessageDisplay.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/UserControls/UC_GUILogRxNackWarning.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/UserControls/UC_GUILogRxOK.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
-        <entry key="SA3438-NG_Commander/UserControls/UC_NGRxNackMessageDisplay.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
         <entry key="SA3438-NG_Commander/Views/MainWindow.axaml" value="SA3438-NG_Commander/SA3438-NG_Commander.csproj" />
       </map>
     </option>

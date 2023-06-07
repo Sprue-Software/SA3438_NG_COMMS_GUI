@@ -8,5 +8,5 @@ public class Settings_LowLevelProtocol
 {
     [Required] public String?                        Name            { get; set; }
     [Required] public List<Settings_NackReasonCode>? NackReasonCodes { get; set; }
-    [Required] public List<Settings_CommandGroup>?   Commands { get; set; }
+    [Required] public List<Settings_CommandGroup>?   Commands        { get; set; }
 }
