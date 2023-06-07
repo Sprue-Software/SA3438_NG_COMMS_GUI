@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SA3438-NG_Commander", "SA3438-NG_Commander\SA3438-NG_Commander.csproj", "{D8F746A8-BC37-4381-9A5E-9ED6EEE5D235}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SA3438-NG_Commander", "SA3438-NG_Commander\SA3438-NG_Commander.csproj", "{8825B523-934E-4338-8C45-33905876B522}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D8F746A8-BC37-4381-9A5E-9ED6EEE5D235}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8F746A8-BC37-4381-9A5E-9ED6EEE5D235}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8F746A8-BC37-4381-9A5E-9ED6EEE5D235}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8F746A8-BC37-4381-9A5E-9ED6EEE5D235}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8825B523-934E-4338-8C45-33905876B522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8825B523-934E-4338-8C45-33905876B522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8825B523-934E-4338-8C45-33905876B522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8825B523-934E-4338-8C45-33905876B522}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

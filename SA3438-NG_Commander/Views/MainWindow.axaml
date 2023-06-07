@@ -1,23 +1,25 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:NG_Commander.ViewModels"
+        xmlns:vm="using:SA3438_NG_Commander.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ngCommander="clr-namespace:NG_Commander"
-        xmlns:dataTemplates="clr-namespace:NG_Commander.DataTemplates"
-        xmlns:material="using:Material.Icons.Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="NG_Commander.Views.MainWindow"
+        x:Class="SA3438_NG_Commander.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/Fireangel.ico"
-        Title="NG Commander"
+        Title="SA3438_NG_Commander"
         WindowStartupLocation="CenterScreen"
         MinWidth="800"
         MinHeight="450">
 
     <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel />
     </Design.DataContext>
+
     <Grid RowDefinitions="Auto,Auto,*" ColumnDefinitions="*">
+        <!-- Menu -->
         <Grid Grid.Row="0">
             <Menu Background="#F0F0F0">
                 <MenuItem Header="_File">
@@ -29,37 +31,31 @@
                 </MenuItem>
             </Menu>
         </Grid>
+        <!-- Protocol and serial port selection -->
         <Grid Grid.Row="1">
-            <Grid>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <ComboBox Margin="5,5,0,0" Items="{Binding Protocols}"
-                              SelectedItem="{Binding SelectedProductProtocol, Mode=TwoWay}"
-                              IsEnabled="{Binding !IsConnected}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate DataType="vm:ProductProtocolViewModel">
-                                <TextBlock TextAlignment="Left" Text="{Binding Name}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <ComboBox Margin="5,5,0,0" Items="{Binding SerialPorts}"
-                              SelectedIndex="{Binding SelectedSerialPortIndex, Mode=TwoWay}"
-                              IsEnabled="{Binding !IsConnected}" IsDropDownOpen="{Binding IsPortsComboboxDown}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate DataType="vm:ProductProtocolViewModel">
-                                <TextBlock TextAlignment="Left" Text="{Binding Name}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <Button Margin="5,5,0,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
-                            Content="{Binding ConnectDisconnect}" Command="{Binding OpenClosePortCommand}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
-                    <Button Margin="5,5,0,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"
-                            VerticalContentAlignment="Center"
-                            Command="{Binding ClearLogsCommand}"
-                            Content="Clear Logs" />
-                </StackPanel>
-            </Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <!--<ComboBox Margin="5,5,0,0" Items="{Binding Protocols}"
+                          SelectedItem="{Binding SelectedProductProtocol, Mode=TwoWay}"
+                          IsEnabled="{Binding !IsConnected}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="vm:ProductProtocolViewModel">
+                            <TextBlock TextAlignment="Left" Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>-->
+                <ComboBox Margin="5,5,0,0" ItemsSource="{Binding SerialPorts}"
+                          SelectedIndex="{Binding SelectedSerialPortIndex, Mode=TwoWay}"
+                          IsEnabled="{Binding !IsConnected}"
+                          IsDropDownOpen="{Binding IsPortsComboboxDown, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="StringConverters">
+                            <TextBlock TextAlignment="Left" Text="{Binding }" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Margin="5,5,0,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
+                        Content="{Binding ConnectDisconnect}" Command="{Binding OpenClosePortCommand}" />
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="2">
             <Grid ColumnDefinitions="Auto,*" RowDefinitions="*" HorizontalAlignment="Stretch">
@@ -68,9 +64,10 @@
                         <Grid Column="0" Row="0">
                             <Label Content="Commands" FontWeight="Bold" FontSize="16" />
                         </Grid>
-                        <Grid Column="0" Row="1" HorizontalAlignment="Stretch">
-                            <ScrollViewer HorizontalAlignment="Stretch" Padding="0,0,7,0">
-                                <ItemsRepeater Items="{Binding SelectedProductProtocol.ProductProtocolCommandGroups }"
+                        <Grid Column="1" Row="0" HorizontalAlignment="Stretch">
+                            <Grid ColumnDefinitions="*" RowDefinitions="Auto,*,Auto,*" HorizontalAlignment="Stretch">
+                                <!--<ScrollViewer HorizontalAlignment="Stretch" Padding="0,0,7,0">
+                                    <ItemsRepeater Items="{Binding SelectedProductProtocol.ProductProtocolCommandGroups }"
                                                HorizontalAlignment="Stretch">
                                     <ItemsRepeater.ItemTemplate>
                                         <DataTemplate DataType="vm:ProductProtocolCommandGroupViewModel">
@@ -98,7 +95,6 @@
                                                                 x:DataType="vm:ProductProtocolCommandViewModel"
                                                                 x:Key="System.Boolean">
                                                                 <ToggleSwitch IsChecked="{Binding TxValue}" />
-                                                                <!--<CheckBox IsChecked="{Binding TxValue}"/>-->
                                                             </DataTemplate>
                                                             <DataTemplate
                                                                 x:DataType="vm:ProductProtocolCommandViewModel"
@@ -174,6 +170,7 @@
                                                                             VerticalAlignment="Center"
                                                                             HorizontalAlignment="Stretch">
                                                                         </TextBlock>
+
                                                                     </Border>
                                                                 </Button>
                                                                 <ContentControl Grid.Column="1" Content="{Binding}" />
@@ -185,12 +182,56 @@
                                         </DataTemplate>
                                     </ItemsRepeater.ItemTemplate>
                                 </ItemsRepeater>
-                            </ScrollViewer>
+                                </ScrollViewer>-->
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid Grid.Column="1" Row="0" Margin="1,1" HorizontalAlignment="Stretch">
-                    <ScrollViewer HorizontalAlignment="Stretch" Margin="0" Padding="0,0,0,0"
+                    <Grid ColumnDefinitions="*" RowDefinitions="Auto,80*,Auto,20*">
+                        <Grid Grid.Row="0" Margin="5,5,0,0">
+                            <Label HorizontalAlignment="Left" FontWeight="Bold" FontSize="16">Logs</Label>
+                            <!--<Button Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ClearLogsCommand}"
+                        Content="Clear Logs" />-->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Margin="5,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                                        VerticalContentAlignment="Center"
+                                        Content="Export" />
+                                <Button Margin="5,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                                        VerticalContentAlignment="Center"
+                                        Content="Clear" />
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="5,5,0,0">
+                            <ScrollViewer HorizontalAlignment="Stretch" Margin="0" Padding="0,0,0,0"
+                                          HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                                <!--Todo: Add listview Logs-->
+                                <Label>Logs</Label>
+                            </ScrollViewer>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="5,5,0,0">
+                            <Label HorizontalAlignment="Left" FontWeight="Bold" FontSize="16">Debug Messages</Label>
+                            <Button Margin="5,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                                    VerticalContentAlignment="Center"
+                                    Content="Clear" Command="{Binding ClearDebugMessagesCommand}"/>
+                        </Grid>
+                        <Grid Grid.Row="3" Margin="5,5,5,5">
+                            <ScrollViewer HorizontalAlignment="Stretch" Margin="0" Padding="0,0,5,5"
+                                          HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" PropertyChanged="AvaloniaObject_OnPropertyChanged">
+                                <ItemsRepeater ItemsSource="{Binding Debug}">
+                                    <ItemsRepeater.DataTemplates>
+                                        <DataTemplate x:DataType="StringConverters">
+                                            <TextBlock Text="{Binding}"/>
+                                        </DataTemplate>
+                                    </ItemsRepeater.DataTemplates>
+                                </ItemsRepeater>
+                                <!--<Label>Debug Messages</Label>-->
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                    <!--<ScrollViewer HorizontalAlignment="Stretch" Margin="0" Padding="0,0,0,0"
                                   HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
                         <ItemsRepeater Items="{Binding Logs}" HorizontalAlignment="Stretch" Margin="0">
 
@@ -248,9 +289,10 @@
                                 </DataTemplate>
                             </ItemsRepeater.ItemTemplate>
                         </ItemsRepeater>
-                    </ScrollViewer>
+                    </ScrollViewer>-->
                 </Grid>
             </Grid>
         </Grid>
     </Grid>
+
 </Window>
